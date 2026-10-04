@@ -1,57 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Redirect</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px 20px;
-            background: #111;
-            color: white;
-        }
-
-        input {
-            width: 90%;
-            max-width: 400px;
-            padding: 14px;
-            border-radius: 8px;
-            border: none;
-            margin-bottom: 10px;
-        }
-
-        button {
-            padding: 14px 25px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PORSE HUB - Secure Key</title>
+<style>
+body{font-family:sans-serif;background:#0a0a0a;color:white;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0}
+.box{background:#161616;padding:28px;border-radius:16px;width:90%;max-width:400px;text-align:center;border:1px solid #2a2a2a}
+button{background:#00ff88;border:none;padding:13px;border-radius:10px;font-weight:bold;width:100%;cursor:pointer;font-size:15px}
+button:disabled{background:#333;color:#666}
+#keyBox{display:none;background:#000;padding:14px;border-radius:8px;margin-top:15px;border:1px dashed #00ff88;font-size:18px;letter-spacing:1px;word-break:break-all}
+</style>
 </head>
-
 <body>
-
-    <h1>My Redirect</h1>
-    <p>Masukkan link tujuan:</p>
-
-    <input id="link" type="url" placeholder="https://contoh.com">
-    <br>
-    <button onclick="go()">Continue</button>
-
-    <script>
-        function go() {
-            const url = document.getElementById("link").value.trim();
-
-            if (url.startsWith("https://") || url.startsWith("http://")) {
-                window.location.href = url;
-            } else {
-                alert("Masukkan link yang benar.");
-            }
-        }
-    </script>
-
+<div class="box">
+<h2>🔒 PORSE HUB</h2>
+<p style="color:#aaa;font-size:13px;">Valid 24 Jam</p>
+<p id="info">Click untuk verifikasi</p>
+<button id="btn" onclick="start()">GET KEY - STEP 1/2</button>
+<div id="keyBox"></div>
+<button id="copyBtn" style="display:none;background:white;margin-top:10px;" onclick="copyKey()">COPY KEY</button>
+</div>
+<script>
+let step=1;
+function start(){
+  let btn=document.getElementById('btn');
+  let info=document.getElementById('info');
+  let count=7;
+  btn.disabled=true;
+  let t=setInterval(()=>{
+    info.innerText="Tunggu "+count+"s...";
+    count--;
+    if(count<0){
+      clearInterval(t);
+      if(step==1){
+        step=2;
+        info.innerText="Step 1 OK! Lanjut terakhir";
+        btn.innerText="GET KEY - STEP 2/2";
+        btn.disabled=false;
+      }else{
+        let rand=Math.random().toString(36).substring(2,8).toUpperCase();
+        let time=Date.now().toString(36).toUpperCase();
+        let key="PORSE-"+rand+"-"+time;
+        document.getElementById('keyBox').innerText=key;
+        document.getElementById('keyBox').style.display="block";
+        document.getElementById('copyBtn').style.display="block";
+        btn.style.display="none";
+        info.innerText="✅ Key aktif 24 jam!";
+      }
+    }
+  },1000);
+}
+function copyKey(){
+  navigator.clipboard.writeText(document.getElementById('keyBox').innerText);
+  alert("Key dicopy!");
+}
+</script>
 </body>
 </html>

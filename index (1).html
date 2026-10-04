@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Redirect</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px 20px;
+            background: #111;
+            color: white;
+        }
+
+        input {
+            width: 90%;
+            max-width: 400px;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>My Redirect</h1>
+    <p>Masukkan link tujuan:</p>
+
+    <input id="link" type="url" placeholder="https://contoh.com">
+    <br>
+    <button onclick="go()">Continue</button>
+
+    <script>
+        function go() {
+            const url = document.getElementById("link").value.trim();
+
+            if (url.startsWith("https://") || url.startsWith("http://")) {
+                window.location.href = url;
+            } else {
+                alert("Masukkan link yang benar.");
+            }
+        }
+    </script>
+
+</body>
+</html>
